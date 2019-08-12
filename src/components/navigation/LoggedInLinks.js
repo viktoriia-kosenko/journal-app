@@ -1,11 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { signOut } from "../../store/actions/authActions";
 
-const LoggedInLinks = () => {
+const LoggedInLinks = props => {
   return (
     <ul className="right">
       <li>
-        <NavLink to="/">Log Out</NavLink>
+        <a href="#" onClick={props.signOut}>
+          Log Out
+        </a>
       </li>
       <li>
         <NavLink to="/" className="btn btn-floating orange lighten-1">
@@ -16,4 +20,13 @@ const LoggedInLinks = () => {
   );
 };
 
-export default LoggedInLinks;
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: () => dispatch(signOut())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(LoggedInLinks);

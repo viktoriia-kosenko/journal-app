@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Note from "./Note";
 import NoteForm from "./NoteForm";
 import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
 export class Content extends Component {
   render() {
@@ -23,8 +25,11 @@ export class Content extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state.note.notes
+    notes: state.firestore.ordered.notes
   };
 };
 
-export default connect(mapStateToProps)(Content);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "notes" }])
+)(Content);
