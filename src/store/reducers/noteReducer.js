@@ -22,7 +22,16 @@ const initState = {
 };
 
 const noteReducer = (state = initState, action) => {
-  return state;
+  switch (action.type) {
+    case "CREATE_NOTE":
+      console.log("note", action.note);
+      return state;
+    case "CREATE_PROJECT_ERROR":
+      console.log("error", action.err);
+      return state;
+    default:
+      return state;
+  }
 };
 
 export default noteReducer;

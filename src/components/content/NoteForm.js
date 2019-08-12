@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { createNote } from "../../store/actions/noteActions";
 
 class NoteForm extends Component {
   state = {
@@ -14,7 +16,7 @@ class NoteForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.createNote(this.state);
   };
 
   render() {
@@ -48,4 +50,15 @@ class NoteForm extends Component {
   }
 }
 
-export default NoteForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    //when we call this.ptops.createNote
+    //it will fire function below, wich takes new note as a param
+    createNote: note => dispatch(createNote(note))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(NoteForm);
