@@ -13,10 +13,14 @@ export class EditableNote extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { title, content } = this.state;
-    const { updateNote, id, changeEditMode } = this.props;
-    updateNote(id, title, content);
-    changeEditMode();
+    if (!this.state.title.length || !this.state.content) {
+      alert("fealds can't be empty");
+    } else {
+      const { title, content } = this.state;
+      const { updateNote, id, changeEditMode } = this.props;
+      updateNote(id, title, content);
+      changeEditMode();
+    }
   };
 
   render() {
@@ -53,6 +57,12 @@ export class EditableNote extends Component {
                 className="waves-effect waves-light orange btn"
               >
                 Submit
+              </button>
+              <button
+                className="waves-effect waves-light orange btn"
+                onClick={this.props.changeEditMode}
+              >
+                Cancel
               </button>
             </div>
           </form>

@@ -16,11 +16,15 @@ class NoteForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.createNote(this.state);
-    this.setState({
-      title: "",
-      content: ""
-    });
+    if (!this.state.title.length || !this.state.content) {
+      alert("fealds can't be empty");
+    } else {
+      this.props.createNote(this.state);
+      this.setState({
+        title: "",
+        content: ""
+      });
+    }
   };
 
   render() {
