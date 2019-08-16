@@ -17,6 +17,10 @@ class NoteForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.createNote(this.state);
+    this.setState({
+      title: "",
+      content: ""
+    });
   };
 
   render() {
@@ -27,7 +31,12 @@ class NoteForm extends Component {
 
           <div className="input-field">
             <label htmlFor="title">Note title</label>
-            <input type="text" id="title" onChange={this.handleChange} />
+            <input
+              type="text"
+              id="title"
+              onChange={this.handleChange}
+              value={this.state.title}
+            />
           </div>
 
           <div className="input-field">
@@ -36,11 +45,15 @@ class NoteForm extends Component {
               id="content"
               className="materialize-textarea"
               onChange={this.handleChange}
+              value={this.state.content}
             />
           </div>
           <p className="text-grey">*Use the form above to create a post</p>
           <div className="input-field">
-            <button className="btn orange lighten-1 z-depth-0 waves-effect waves-light">
+            <button
+              type="submit"
+              className="btn orange lighten-1 z-depth-0 waves-effect waves-light"
+            >
               Submit
             </button>
           </div>

@@ -5,20 +5,53 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-import { deleteNote } from "../../store/actions/noteActions";
+import { deleteNote, updateNote } from "../../store/actions/noteActions";
+import EditableNote from "./EditableNote";
 
 export class Content extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { selectedEditNoteId: null };
+  }
+
+  editNote = id => {
+    this.setState({
+      selectedEditNoteId: id
+    });
+  };
+
+  changeEditMode = () => {
+    this.setState({
+      selectedEditNoteId: null
+    });
+  };
+
   render() {
-    const { notes, auth, deleteNote } = this.props;
+    const { notes, auth, deleteNote, updateNote } = this.props;
     if (!auth.uid) return <Redirect to="/login" />;
     return (
       <div className="container">
         <NoteForm />
-        <div className="container row">
+        <div className="container">
           {notes &&
-            notes.map(note => {
-              return <Note note={note} key={note.id} deleteNote={deleteNote} />;
-            })}
+            notes.map(note =>
+              note.id === this.state.selectedEditNoteId ? (
+                <EditableNote
+                  key={note.id}
+                  note={note}
+                  updateNote={updateNote}
+                  id={note.id}
+                  changeEditMode={this.changeEditMode}
+                />
+              ) : (
+                <Note
+                  note={note}
+                  key={note.id}
+                  deleteNote={deleteNote}
+                  onEdit={this.editNote}
+                />
+              )
+            )}
         </div>
       </div>
     );
@@ -37,7 +70,8 @@ const mapDispatchToProps = dispatch => {
   return {
     //when we call this.ptops.deleteNote
     //it will fire function below, wich takes  note's Id as a param
-    deleteNote: id => dispatch(deleteNote(id))
+    deleteNote: id => dispatch(deleteNote(id)),
+    updateNote: (id, title, content) => dispatch(updateNote(id, title, content))
   };
 };
 

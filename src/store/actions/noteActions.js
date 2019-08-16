@@ -39,3 +39,23 @@ export const deleteNote = id => {
       });
   };
 };
+
+export const updateNote = (id, title, content) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    firestore
+      .collection("notes")
+      .doc(id)
+      .update({
+        title: title,
+        content: content
+      })
+      .then(() => {
+        dispatch({ type: "UPDATE_NOTE" });
+      })
+      .catch(err => {
+        dispatch({ type: "UPDATE_NOTE_ERROR" }, err);
+      });
+  };
+};
