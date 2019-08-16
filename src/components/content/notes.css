@@ -1,0 +1,26 @@
+/* * {
+  border: 1px solid black;
+} */
+
+.note {
+  width: 31%;
+  margin: 1%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 800px) {
+  .note {
+    width: 46%;
+    margin: 2%;
+  }
+}
+@media (max-width: 550px) {
+  .note {
+    width: 100%;
+  }
+}

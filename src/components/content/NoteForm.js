@@ -29,7 +29,7 @@ class NoteForm extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="">
         <form className="white" onSubmit={this.handleSubmit}>
           <h5 className="grey-text text-darken-3">Create a Note</h5>
 

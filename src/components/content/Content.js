@@ -7,6 +7,7 @@ import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import { deleteNote, updateNote } from "../../store/actions/noteActions";
 import EditableNote from "./EditableNote";
+import "./notes.css";
 
 export class Content extends Component {
   constructor(props) {
@@ -30,9 +31,9 @@ export class Content extends Component {
     const { notes, auth, deleteNote, updateNote } = this.props;
     if (!auth.uid) return <Redirect to="/login" />;
     return (
-      <div className="container">
+      <div className="container ">
         <NoteForm />
-        <div className="container">
+        <div className=" wrapper">
           {notes &&
             notes.map(note =>
               note.id === this.state.selectedEditNoteId ? (
